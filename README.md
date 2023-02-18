@@ -1,2 +1,3 @@
-# react-tic-tac-toe
-react tic-tac-toe
+# React tic-tac-toe
+
+my first react app
