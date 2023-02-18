@@ -22,29 +22,32 @@ const Board = () => {
     }, [])
 
     function handleCellClick (cell_index) {
-        if (cells[cell_index] === null) {
-            var new_cells = cells.map((v,i) => (i === cell_index) ? currentPlayer : v)
-            setCells(new_cells)
-            
-            for (let i = 0; i < 3; i++) {
-                let valid_row_cells = 0
-                let valid_col_cells = 0
-                let valid_diag1_cells = 0
-                let valid_diag2_cells = 0
-                for (let j = 0; j < 3; j++) {
-                    valid_row_cells += (new_cells[i * 3 + j] === currentPlayer)
-                    valid_col_cells += (new_cells[i + j * 3] === currentPlayer)
-                    valid_diag1_cells += (new_cells[j * 3 + j] === currentPlayer)
-                    valid_diag2_cells += (new_cells[j * 3 + (2 - j)] === currentPlayer)
-                }
-                if ([valid_row_cells, valid_col_cells, valid_diag1_cells, valid_diag2_cells].includes(3)) {
-                    setWinner(currentPlayer)
-                    break
-                }
-            }
+        if (winner !== null)
+            return;
+        if (cells[cell_index] !== null)
+            return;
 
-            setCurrentPlayer((currentPlayer === 'X') ? 'O' : 'X')
+        var new_cells = cells.map((v,i) => (i === cell_index) ? currentPlayer : v)
+        setCells(new_cells)
+        
+        for (let i = 0; i < 3; i++) {
+            let valid_row_cells = 0
+            let valid_col_cells = 0
+            let valid_diag1_cells = 0
+            let valid_diag2_cells = 0
+            for (let j = 0; j < 3; j++) {
+                valid_row_cells += (new_cells[i * 3 + j] === currentPlayer)
+                valid_col_cells += (new_cells[i + j * 3] === currentPlayer)
+                valid_diag1_cells += (new_cells[j * 3 + j] === currentPlayer)
+                valid_diag2_cells += (new_cells[j * 3 + (2 - j)] === currentPlayer)
+            }
+            if ([valid_row_cells, valid_col_cells, valid_diag1_cells, valid_diag2_cells].includes(3)) {
+                setWinner(currentPlayer)
+                break
+            }
         }
+
+        setCurrentPlayer((currentPlayer === 'X') ? 'O' : 'X')
     }
 
     function handleRestart () {
