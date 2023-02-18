@@ -49,7 +49,7 @@ const Board = () => {
 
     function handleRestart () {
         setCurrentPlayer(['O','X'][Math.floor(Math.random() * 2)])
-        setCells(Array(9).fill().map(() => null))
+        setCells(Array(9).fill(null))
         setWinner(null)
     }
 
